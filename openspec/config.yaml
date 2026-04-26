@@ -1,0 +1,62 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: NestJS 11, TypeScript, TypeORM, PostgreSQL, Redis (BullMQ), Jest
+  Architecture: Module-based, TypeORM entities, JWT auth
+  Testing: Jest + Supertest (unit + e2e)
+  Style: ESLint + Prettier, ts-jest transformer
+
+strict_tdd: true
+
+testing:
+  strict_tdd_mode: enabled
+  test_runner:
+    command: "pnpm test"
+    framework: jest
+  test_layers:
+    unit:
+      available: true
+      tool: jest
+    integration:
+      available: true
+      tool: "@nestjs/testing + supertest"
+    e2e:
+      available: true
+      tool: "jest --config ./test/jest-e2e.json"
+  coverage:
+    available: true
+    command: "pnpm test:cov"
+  quality_tools:
+    linter:
+      available: true
+      command: "pnpm lint"
+    type_checker:
+      available: true
+      command: "tsc --noEmit"
+    formatter:
+      available: true
+      command: "pnpm format"
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Identify affected modules/packages
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group tasks by phase (infrastructure, implementation, testing)
+    - Use hierarchical numbering (1.1, 1.2, etc.)
+    - Keep tasks small enough to complete in one session
+  apply:
+    - Follow existing code patterns and conventions
+    - Load relevant coding skills for the project stack
+  verify:
+    - Run tests if test infrastructure exists
+    - Compare implementation against every spec scenario
+  archive:
+    - Warn before merging destructive deltas (large removals)

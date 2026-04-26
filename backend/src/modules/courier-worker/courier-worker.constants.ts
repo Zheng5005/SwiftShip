@@ -1,0 +1,1 @@
+export const COURIER_WORKER = 'COURIER_WORKER';

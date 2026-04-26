@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Patch, Body, Param, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Body, Param, UseGuards, Request, Sse, MessageEvent } from '@nestjs/common';
+import { Observable } from 'rxjs';
 import { OrderService } from './order.service';
 import { CreateOrderDto, UpdateOrderDto } from './dto/order.dto';
 import { JwtAuthGuard, RolesGuard, ROLES_KEY } from '../auth/guards';
@@ -28,5 +29,10 @@ export class OrderController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateOrderDto, @Request() req) {
     return this.orderService.update(id, dto, req.user);
+  }
+
+  @Sse(':id/stream')
+  async streamOrder(@Param('id') id: string, @Request() req): Promise<Observable<MessageEvent>> {
+    return this.orderService.streamOrder(id, req.user);
   }
 }

@@ -1,0 +1,44 @@
+meta {
+  name: Stream Order
+  type: http
+  seq: 5
+}
+
+get {{baseUrl}}/orders/:id/stream
+Authorization: Bearer {{token}}
+
+path-id {
+  :id: ""
+}
+
+res {
+  body: text
+}
+
+// SSE Endpoint - Real-Time Order Updates
+// 
+// This endpoint establishes a Server-Sent Events (SSE) connection
+// to receive real-time updates for a specific order.
+//
+// Expected SSE events:
+// - event: connected
+//   data: { orderId, status, timestamp, event: "connected" }
+//   Initial connection event with current order status
+//
+// - event: COURIER_ASSIGNED
+//   data: { orderId, status: "ACCEPTED", courierId, timestamp, event: "COURIER_ASSIGNED" }
+//   Fired when a courier is assigned to the order
+//
+// - event: ORDER_EXPIRED
+//   data: { orderId, status: "CANCELLED", timestamp, event: "ORDER_EXPIRED" }
+//   Fired when the order expires before being accepted
+//
+// - event: heartbeat (optional)
+//   data: { timestamp }
+//   Keep-alive event sent periodically
+//
+// Notes:
+// - Connection remains open until client disconnects
+// - Requires valid JWT authentication
+// - Any authenticated user or courier can connect
+// - Filtered to events for the specified orderId only

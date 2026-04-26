@@ -3,6 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
+import { COURIER_WORKER } from './../src/modules/courier-worker/courier-worker.constants';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
@@ -10,10 +11,17 @@ describe('AppController (e2e)', () => {
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    })
+      .overrideProvider(COURIER_WORKER)
+      .useValue({ close: jest.fn().mockResolvedValue(undefined) })
+      .compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
+  });
+
+  afterEach(async () => {
+    await app.close();
   });
 
   it('/ (GET)', () => {
