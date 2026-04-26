@@ -1,0 +1,23 @@
+meta {
+  name: Register User
+  type: http
+  seq: 1
+}
+
+post {{baseUrl}}/auth/register/user
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "password": "password123",
+  "fullName": "John Customer",
+  "phoneNumber": "+1234567890"
+}
+
+res {
+  body: json
+}
+
+after-response {
+  // No token capture for registration
+}

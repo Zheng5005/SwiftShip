@@ -1,0 +1,19 @@
+meta {
+  name: Register Courier
+  type: http
+  seq: 2
+}
+
+post {{baseUrl}}/auth/register/courier
+Content-Type: application/json
+
+{
+  "email": "courier@example.com",
+  "password": "password123",
+  "fullName": "Jane Courier",
+  "vehicleType": "bicycle"
+}
+
+res {
+  body: json
+}

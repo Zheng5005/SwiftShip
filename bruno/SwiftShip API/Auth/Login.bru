@@ -1,0 +1,24 @@
+meta {
+  name: Login
+  type: http
+  seq: 3
+}
+
+post {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "password": "password123"
+}
+
+res {
+  body: json
+}
+
+after-response {
+  const token = res.getBody("access_token");
+  if (token) {
+    bru.setVar("token", token);
+  }
+}

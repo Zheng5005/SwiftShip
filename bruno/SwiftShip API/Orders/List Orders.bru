@@ -1,0 +1,12 @@
+meta {
+  name: List Orders
+  type: http
+  seq: 2
+}
+
+get {{baseUrl}}/orders
+Authorization: Bearer {{token}}
+
+res {
+  body: json
+}

@@ -1,0 +1,21 @@
+meta {
+  name: Update Order
+  type: http
+  seq: 4
+}
+
+patch {{baseUrl}}/orders/:id
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "ACCEPTED"
+}
+
+path-id {
+  :id: ""
+}
+
+res {
+  body: json
+}

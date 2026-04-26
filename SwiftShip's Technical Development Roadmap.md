@@ -53,7 +53,8 @@
 ```
 /swiftship
   ├── /backend        # NestJS, TypeORM, BullMQ, Dockerfile
-  ├── /mobile         # Expo, Redux, Native Modules, Sentry Config
   ├── /bruno          # API Request Collection
+  ├── /mobile         # Expo, Redux, Native Modules, Sentry Config
+  ├── /prd            # PRD files for each phase
   └── README.md
 ```

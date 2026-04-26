@@ -1,0 +1,16 @@
+meta {
+  name: Get Order
+  type: http
+  seq: 3
+}
+
+get {{baseUrl}}/orders/:id
+Authorization: Bearer {{token}}
+
+path-id {
+  :id: ""
+}
+
+res {
+  body: json
+}

@@ -1,0 +1,10 @@
+{
+  "name": "SwiftShip API",
+  "version": "1",
+  "items": [],
+  "environments": [],
+  "headers": [],
+  "auth": {
+    "mode": "none"
+  }
+}

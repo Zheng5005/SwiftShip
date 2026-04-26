@@ -1,0 +1,18 @@
+meta {
+  name: Create Order
+  type: http
+  seq: 1
+}
+
+post {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "pickupAddress": "123 Main St, City",
+  "dropoffAddress": "456 Oak Ave, Town"
+}
+
+res {
+  body: json
+}

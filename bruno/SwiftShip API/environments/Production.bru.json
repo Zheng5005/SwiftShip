@@ -1,0 +1,19 @@
+{
+  "name": "Production",
+  "variables": [
+    {
+      "name": "baseUrl",
+      "value": "https://api.swiftship.com",
+      "enabled": true,
+      "secret": false,
+      "type": "text"
+    },
+    {
+      "name": "token",
+      "value": "",
+      "enabled": true,
+      "secret": true,
+      "type": "text"
+    }
+  ]
+}

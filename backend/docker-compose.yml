@@ -1,0 +1,42 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '${PORT:-3000}:${PORT:-3000}'
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - PORT=${PORT:-3000}
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_USERNAME=${DB_USERNAME:-swiftship}
+      - DB_PASSWORD=${DB_PASSWORD:-swiftship_secret}
+      - DB_DATABASE=${DB_DATABASE:-swiftship}
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
+      - JWT_EXPIRATION=${JWT_EXPIRATION:-24h}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./src:/app/src
+    command: sh -c "pnpm migration:run && pnpm start:dev"
+
+  db:
+    image: postgres:16-alpine
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRES_USER=${DB_USERNAME:-swiftship}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-swiftship_secret}
+      - POSTGRES_DB=${DB_DATABASE:-swiftship}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME:-swiftship} -d ${DB_DATABASE:-swiftship}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

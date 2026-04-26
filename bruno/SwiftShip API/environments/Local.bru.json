@@ -1,0 +1,19 @@
+{
+  "name": "Local",
+  "variables": [
+    {
+      "name": "baseUrl",
+      "value": "http://localhost:3000",
+      "enabled": true,
+      "secret": false,
+      "type": "text"
+    },
+    {
+      "name": "token",
+      "value": "",
+      "enabled": true,
+      "secret": true,
+      "type": "text"
+    }
+  ]
+}
